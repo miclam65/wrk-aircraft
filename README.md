@@ -69,25 +69,25 @@ $ docker build -t wrk-k8s/wrk-aircraft:4.3.2 .
 
 Tag and Push this image to Container Registry:
 ```docker
-$ docker tag wrk-k8s/wrk-aircraft:4.3.2 harbor.c2.dav.fr/wrk-k8s/wrk-aircraft:4.3.2
-$ docker push harbor.c2.dav.fr/wrk-k8s/wrk-aircraft:4.3.2
+$ docker tag wrk-k8s/wrk-aircraft:4.3.2 wrk-k8s/wrk-aircraft:4.3.2
+$ docker push wrk-k8s/wrk-aircraft:4.3.2
 ```
 
 ### Run the image
 ```docker
 $ docker run -d --name wrka -p 8080:8080 \
-    harbor.c2.dav.fr/wrk-k8s/wrk-aircraft:4.3.2
+    wrk-k8s/wrk-aircraft:4.3.2
 
 docker run -d --name wrka -p 8080:8080 -e JAVA_OPTS="-Dspring.datasource.url=jdbc:h2:mem:wrk-aircraft -Dspring.datasource.username=sa -Dspring.datasource.password=YWRtaW4wCg==" -e ENV="DEV" wrk-k8s/wrk-aircraft:4.3.2
 $ docker run -d --name wrka -p 8080:8080 \
     -e JAVA_OPTS="-Dspring.datasource.url=jdbc:h2:mem:wrk-aircraft -Dspring.datasource.username=sa -Dspring.datasource.password=YWRtaW4wCg==" \
     -e ENV="DEV" \
-    harbor.c2.dav.fr/wrk-k8s/wrk-aircraft:4.3.2
+    wrk-k8s/wrk-aircraft:4.3.2
 
 $ docker run -d --name wrka -p 8080:8080 \
     -e JAVA_OPTS="-Dspring.datasource.url=jdbc:h2:mem:wrk-aircraft" \
     -e ENV="DEV" \
-    harbor.c2.dav.fr/wrk-k8s/wrk-aircraft:4.3.2 \
+    wrk-k8s/wrk-aircraft:4.3.2 \
     --spring.datasource.username=sa \
     --spring.datasource.password=YWRtaW4wCg==    
 ```
