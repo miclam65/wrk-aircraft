@@ -1,0 +1,31 @@
+global:
+  scrape_interval:     10s 
+  evaluation_interval: 10s
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  # external_labels:
+  #    monitor: 'ml-monitor'
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first.rules"
+  # - "second.rules"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  - job_name: prometheus
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+      - targets: ['localhost:9090']
+    
+  - job_name: wrk-aircraft
+    metrics_path: /actuator/prometheus
+    #scheme: http
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['wrk-aircraft:8080']
+        labels:
+          application: wrk-aircraft

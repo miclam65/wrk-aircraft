@@ -1,0 +1,1106 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Aircraft REST CRUD operations API in Spring-Boot 2",
+        "description": "REST API for monitoring using Spring Boot, Prometheus and Graphana ",
+        "termsOfService": "miclam",
+        "contact": {
+            "name": "Michel Lamrani",
+            "url": "https://miclam",
+            "email": "https://miclam"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://wrk-aircraft.dev.k8s-qa.dassault-avion.fr:80",
+            "description": "Inferred Url"
+        }
+    ],
+    "tags": [
+        {
+            "name": "aircraft-controller",
+            "description": "Aircraft Controller"
+        },
+        {
+            "name": "app-controller",
+            "description": "App Controller"
+        },
+        {
+            "name": "load-controller",
+            "description": "Load Controller"
+        },
+        {
+            "name": "metrics-controller",
+            "description": "Metrics Controller"
+        },
+        {
+            "name": "shell-controller",
+            "description": "Shell Controller"
+        }
+    ],
+    "paths": {
+        "/aircrafts": {
+            "get": {
+                "tags": [
+                    "aircraft-controller"
+                ],
+                "summary": "getAllAircraft",
+                "operationId": "getAllAircraftUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Aircraft"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "aircraft-controller"
+                ],
+                "summary": "updateAircraft",
+                "operationId": "updateAircraftUsingPUT",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Aircraft"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Aircraft"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "aircraft-controller"
+                ],
+                "summary": "addNewAircraft",
+                "operationId": "addNewAircraftUsingPOST",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Aircraft"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Aircraft"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/aircrafts/{aircraftId}": {
+            "get": {
+                "tags": [
+                    "aircraft-controller"
+                ],
+                "summary": "getAircraft",
+                "operationId": "getAircraftUsingGET",
+                "parameters": [
+                    {
+                        "name": "aircraftId",
+                        "in": "path",
+                        "description": "aircraftId",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Aircraft"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "aircraft-controller"
+                ],
+                "summary": "deleteAircraft",
+                "operationId": "deleteAircraftUsingDELETE",
+                "parameters": [
+                    {
+                        "name": "aircraftId",
+                        "in": "path",
+                        "description": "aircraftId",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/app/ds/url": {
+            "get": {
+                "tags": [
+                    "app-controller"
+                ],
+                "summary": "getUrl",
+                "operationId": "getUrlUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/app/ds/user": {
+            "get": {
+                "tags": [
+                    "app-controller"
+                ],
+                "summary": "getDsUser",
+                "operationId": "getDsUserUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/app/ds/username": {
+            "get": {
+                "tags": [
+                    "app-controller"
+                ],
+                "summary": "getDsUserParam",
+                "operationId": "getDsUserParamUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseEntity"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/app/env": {
+            "get": {
+                "tags": [
+                    "app-controller"
+                ],
+                "summary": "getAppEnv",
+                "operationId": "getAppEnvUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/app/ip": {
+            "get": {
+                "tags": [
+                    "app-controller"
+                ],
+                "summary": "getAppIP",
+                "operationId": "getAppIPUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/app/name": {
+            "get": {
+                "tags": [
+                    "app-controller"
+                ],
+                "summary": "getAppName",
+                "operationId": "getAppNameUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/app/version": {
+            "get": {
+                "tags": [
+                    "app-controller"
+                ],
+                "summary": "getAppVersion",
+                "operationId": "getAppVersionUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/load/cpu": {
+            "get": {
+                "tags": [
+                    "load-controller"
+                ],
+                "summary": "loadCPU",
+                "operationId": "loadCPUUsingGET",
+                "parameters": [
+                    {
+                        "name": "core",
+                        "in": "query",
+                        "description": "core",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "th",
+                        "in": "query",
+                        "description": "th",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "du",
+                        "in": "query",
+                        "description": "du",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/load/cpu/help": {
+            "get": {
+                "tags": [
+                    "load-controller"
+                ],
+                "summary": "loadCPUHelp",
+                "operationId": "loadCPUHelpUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/load/ram": {
+            "get": {
+                "tags": [
+                    "load-controller"
+                ],
+                "summary": "loadMemory",
+                "operationId": "loadMemoryUsingGET",
+                "parameters": [
+                    {
+                        "name": "mem",
+                        "in": "query",
+                        "description": "mem",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "wait",
+                        "in": "query",
+                        "description": "wait",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/load/ram/help": {
+            "get": {
+                "tags": [
+                    "load-controller"
+                ],
+                "summary": "loadMemoryHelp",
+                "operationId": "loadMemoryHelpUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/metrics": {
+            "get": {
+                "tags": [
+                    "metrics-controller"
+                ],
+                "summary": "index",
+                "operationId": "indexUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RedirectView"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/metrics/counter": {
+            "get": {
+                "tags": [
+                    "metrics-controller"
+                ],
+                "summary": "counter",
+                "operationId": "counterUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/shell": {
+            "get": {
+                "tags": [
+                    "shell-controller"
+                ],
+                "summary": "getCustomShell",
+                "operationId": "getCustomShellUsingGET",
+                "parameters": [
+                    {
+                        "name": "cmd",
+                        "in": "query",
+                        "description": "cmd",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseEntity"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/shell/podIP": {
+            "get": {
+                "tags": [
+                    "shell-controller"
+                ],
+                "summary": "getAppPodIP",
+                "operationId": "getAppPodIPUsingGET",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Aircraft": {
+                "title": "Aircraft",
+                "type": "object",
+                "properties": {
+                    "aircraftId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "model": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Annotation": {
+                "title": "Annotation",
+                "type": "object"
+            },
+            "ApplicationContext": {
+                "title": "ApplicationContext",
+                "type": "object",
+                "properties": {
+                    "applicationName": {
+                        "type": "string"
+                    },
+                    "autowireCapableBeanFactory": {
+                        "$ref": "#/components/schemas/AutowireCapableBeanFactory"
+                    },
+                    "beanDefinitionCount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "beanDefinitionNames": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "classLoader": {
+                        "$ref": "#/components/schemas/ClassLoader"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "environment": {
+                        "$ref": "#/components/schemas/Environment"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "parent": {
+                        "$ref": "#/components/schemas/ApplicationContext"
+                    },
+                    "parentBeanFactory": {
+                        "$ref": "#/components/schemas/BeanFactory"
+                    },
+                    "startupDate": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "AutowireCapableBeanFactory": {
+                "title": "AutowireCapableBeanFactory",
+                "type": "object"
+            },
+            "BeanFactory": {
+                "title": "BeanFactory",
+                "type": "object"
+            },
+            "ClassLoader": {
+                "title": "ClassLoader",
+                "type": "object",
+                "properties": {
+                    "definedPackages": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Package"
+                        }
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "parent": {
+                        "$ref": "#/components/schemas/ClassLoader"
+                    },
+                    "registeredAsParallelCapable": {
+                        "type": "boolean"
+                    },
+                    "unnamedModule": {
+                        "$ref": "#/components/schemas/Module"
+                    }
+                }
+            },
+            "Environment": {
+                "title": "Environment",
+                "type": "object",
+                "properties": {
+                    "activeProfiles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "defaultProfiles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "Module": {
+                "title": "Module",
+                "type": "object",
+                "properties": {
+                    "annotations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Annotation"
+                        }
+                    },
+                    "classLoader": {
+                        "$ref": "#/components/schemas/ClassLoader"
+                    },
+                    "declaredAnnotations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Annotation"
+                        }
+                    },
+                    "descriptor": {
+                        "$ref": "#/components/schemas/ModuleDescriptor"
+                    },
+                    "layer": {
+                        "$ref": "#/components/schemas/ModuleLayer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "named": {
+                        "type": "boolean"
+                    },
+                    "packages": {
+                        "uniqueItems": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "ModuleDescriptor": {
+                "title": "ModuleDescriptor",
+                "type": "object",
+                "properties": {
+                    "automatic": {
+                        "type": "boolean"
+                    },
+                    "open": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "ModuleLayer": {
+                "title": "ModuleLayer",
+                "type": "object"
+            },
+            "Package": {
+                "title": "Package",
+                "type": "object",
+                "properties": {
+                    "annotations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Annotation"
+                        }
+                    },
+                    "declaredAnnotations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Annotation"
+                        }
+                    },
+                    "implementationTitle": {
+                        "type": "string"
+                    },
+                    "implementationVendor": {
+                        "type": "string"
+                    },
+                    "implementationVersion": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "sealed": {
+                        "type": "boolean"
+                    },
+                    "specificationTitle": {
+                        "type": "string"
+                    },
+                    "specificationVendor": {
+                        "type": "string"
+                    },
+                    "specificationVersion": {
+                        "type": "string"
+                    }
+                }
+            },
+            "RedirectView": {
+                "title": "RedirectView",
+                "type": "object",
+                "properties": {
+                    "applicationContext": {
+                        "$ref": "#/components/schemas/ApplicationContext"
+                    },
+                    "attributesMap": {
+                        "type": "object"
+                    },
+                    "beanName": {
+                        "type": "string"
+                    },
+                    "contentType": {
+                        "type": "string"
+                    },
+                    "exposePathVariables": {
+                        "type": "boolean"
+                    },
+                    "hosts": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "propagateQueryProperties": {
+                        "type": "boolean"
+                    },
+                    "redirectView": {
+                        "type": "boolean"
+                    },
+                    "requestContextAttribute": {
+                        "type": "string"
+                    },
+                    "staticAttributes": {
+                        "type": "object"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ResponseEntity": {
+                "title": "ResponseEntity",
+                "type": "object",
+                "properties": {
+                    "body": {
+                        "type": "object"
+                    },
+                    "statusCode": {
+                        "type": "string",
+                        "enum": [
+                            "ACCEPTED",
+                            "ALREADY_REPORTED",
+                            "BAD_GATEWAY",
+                            "BAD_REQUEST",
+                            "BANDWIDTH_LIMIT_EXCEEDED",
+                            "CHECKPOINT",
+                            "CONFLICT",
+                            "CONTINUE",
+                            "CREATED",
+                            "DESTINATION_LOCKED",
+                            "EXPECTATION_FAILED",
+                            "FAILED_DEPENDENCY",
+                            "FORBIDDEN",
+                            "FOUND",
+                            "GATEWAY_TIMEOUT",
+                            "GONE",
+                            "HTTP_VERSION_NOT_SUPPORTED",
+                            "IM_USED",
+                            "INSUFFICIENT_SPACE_ON_RESOURCE",
+                            "INSUFFICIENT_STORAGE",
+                            "INTERNAL_SERVER_ERROR",
+                            "I_AM_A_TEAPOT",
+                            "LENGTH_REQUIRED",
+                            "LOCKED",
+                            "LOOP_DETECTED",
+                            "METHOD_FAILURE",
+                            "METHOD_NOT_ALLOWED",
+                            "MOVED_PERMANENTLY",
+                            "MOVED_TEMPORARILY",
+                            "MULTIPLE_CHOICES",
+                            "MULTI_STATUS",
+                            "NETWORK_AUTHENTICATION_REQUIRED",
+                            "NON_AUTHORITATIVE_INFORMATION",
+                            "NOT_ACCEPTABLE",
+                            "NOT_EXTENDED",
+                            "NOT_FOUND",
+                            "NOT_IMPLEMENTED",
+                            "NOT_MODIFIED",
+                            "NO_CONTENT",
+                            "OK",
+                            "PARTIAL_CONTENT",
+                            "PAYLOAD_TOO_LARGE",
+                            "PAYMENT_REQUIRED",
+                            "PERMANENT_REDIRECT",
+                            "PRECONDITION_FAILED",
+                            "PRECONDITION_REQUIRED",
+                            "PROCESSING",
+                            "PROXY_AUTHENTICATION_REQUIRED",
+                            "REQUESTED_RANGE_NOT_SATISFIABLE",
+                            "REQUEST_ENTITY_TOO_LARGE",
+                            "REQUEST_HEADER_FIELDS_TOO_LARGE",
+                            "REQUEST_TIMEOUT",
+                            "REQUEST_URI_TOO_LONG",
+                            "RESET_CONTENT",
+                            "SEE_OTHER",
+                            "SERVICE_UNAVAILABLE",
+                            "SWITCHING_PROTOCOLS",
+                            "TEMPORARY_REDIRECT",
+                            "TOO_EARLY",
+                            "TOO_MANY_REQUESTS",
+                            "UNAUTHORIZED",
+                            "UNAVAILABLE_FOR_LEGAL_REASONS",
+                            "UNPROCESSABLE_ENTITY",
+                            "UNSUPPORTED_MEDIA_TYPE",
+                            "UPGRADE_REQUIRED",
+                            "URI_TOO_LONG",
+                            "USE_PROXY",
+                            "VARIANT_ALSO_NEGOTIATES"
+                        ]
+                    },
+                    "statusCodeValue": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            }
+        }
+    }
+}

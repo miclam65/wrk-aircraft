@@ -1,0 +1,11 @@
+---
+    iq:
+        # public ID for an existing app in IQ Server, usually the repo name
+        PublicApplication: WRK
+        # possible stages [develop, build, stage-release, release, operate]
+        Stage: build
+        Server: http://nexusfw.zonezei:8080/ # 193.207.1.44:31000        
+
+    application:
+        # Override VS Code User / Workspace setting for excluding development dependencies for this Application
+        IncludeDev: false

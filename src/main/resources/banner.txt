@@ -1,0 +1,13 @@
+${AnsiBackground.BLUE}${AnsiColor.WHITE}
+,--.   ,--. ,------.  ,--. ,--.           ,---.   ,--.                                  ,---.   ,--.   
+|  |   |  | |  .--. ' |  .'   / ,-----.  /  O  \  `--' ,--.--.  ,---. ,--.--.  ,--,--. /  .-' ,-'  '-. 
+|  |.'.|  | |  '--'.' |  .   '  '-----' |  .-.  | ,--. |  .--' | .--' |  .--' ' ,-.  | |  `-, '-.  .-' 
+|   ,'.   | |  |\  \  |  |\   \         |  | |  | |  | |  |    \ `--. |  |    \ '-'  | |  .-'   |  |   
+'--'   '--' `--' '--' `--' '--'         `--' `--' `--' `--'     `---' `--'     `--`--' `--'     `--' 
+${AnsiBackground.WHITE}${AnsiColor.BLUE}
+Application: ${application.title}${application.formatted-version}
+${AnsiBackground.CYAN}${AnsiColor.BLACK}
+Spring Boot:${spring-boot.formatted-version}
+${AnsiBackground.DEFAULT}${AnsiColor.DEFAULT}
+
+

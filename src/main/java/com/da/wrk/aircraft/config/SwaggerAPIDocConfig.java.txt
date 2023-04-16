@@ -1,0 +1,52 @@
+package com.da.wrk.aircraft.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+
+@Configuration
+@EnableWebMvc
+//@ComponentScan("com.da.wrk.aircraft")
+@EnableOpenApi
+public class SwaggerAPIDocConfig {
+    ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+            .title("Aircraft REST CRUD operations API in Spring-Boot 2")
+            .description("REST API for monitoring using Spring Boot, Prometheus and Graphana ")
+            .termsOfServiceUrl("miclam")
+            .version("1.0")
+            .contact(new Contact("Michel Lamrani", "https://miclam", "https://miclam"))
+            .build();
+    }
+
+    @Bean
+    public Docket configureControllerPackageAndConvertors() {
+        return new Docket(DocumentationType.OAS_30)
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("com.da.wrk.aircraft"))
+            .paths(PathSelectors.any())
+            //.paths(PathSelectors.regex("/aircraft.*"))
+            .build()
+            .directModelSubstitute(org.joda.time.LocalDate.class, java.sql.Date.class)
+            .directModelSubstitute(org.joda.time.DateTime.class, java.util.Date.class)
+            .groupName("wrk-aircraft")
+            .apiInfo(apiInfo());
+    }
+
+    // @Bean
+    // public GroupedOpenApi publicApi() {
+    //     return GroupedOpenApi.builder()
+    //             .group("wrk-aircraft")
+    //             .pathsToMatch("/**")
+    //             .build();
+    // }    
+}

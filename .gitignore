@@ -1,0 +1,40 @@
+da.git
+ml.git
+HELP.md
+target/
+.mvn/
+.run
+log/
+bin/
+# !**/src/main/**
+# !**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### VS Code ###
+.vscode/
+.run
+
+### Dependency Tree ###
+src/main/resources/dependency-tree.txt

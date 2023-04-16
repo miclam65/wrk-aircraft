@@ -1,0 +1,186 @@
+app:
+  version: '@project.version@' 
+  env: ${ENV:DEV}
+
+server:
+  port: 8080
+
+logging:
+  file:
+    path: log
+  level:
+    root: ${WRK_AIRCRAFT_LOG_LEVEL:info}
+    #org.springframework.web.servlet.DispatcherServlet: debug
+    #org.hibernate.SQL: DEBUG
+
+spring:
+  application.name: wrk-aircraft
+  banner.location: classpath:banner.txt
+  main.log-startup-info: false
+  #main.banner-mode: off
+  output.ansi.enabled: always  
+  profiles:
+    active: dev
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+        instance:
+          service-base-url: http://localhost:8080         
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # health, info, prometheus, metrics, openapi, swagger-ui
+      cors:
+        allowed-methods: "GET,POST"
+        #allowed-origins: "https://xxx.com"
+  endpoint:
+    health: 
+      show-details: always
+      probes.enabled: "true"
+  # metrics:
+  #   export:
+  #     prometheus.enabled: "true"
+  #     jmx.enabled: "false"
+  #   health:
+  #     group:
+  #       readiness:
+  #         include: "*"
+  #         show-details: always
+  #       liveness:
+  #         include: ping
+  #         show-details: always # never
+  security:
+    enabled: "false"
+
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    # use-root-path: true
+    path: /swagger-ui.html
+    operationsSorter: method
+    enabled: true    
+  show-actuator: true
+
+# keycloak:
+#   realm: miclam
+#   resource: wrk-aircraft
+#   auth-server-url: http://localhost:8080/auth
+#   ssl-required: external
+#   # public-client: true
+#   bearer-only: true
+#   credentials:
+#       secret: secret
+
+#   securityConstraints[0]:
+#     authRoles[0]: wrk_reader
+#     # authRoles[1]: wrk_writer
+#     securityCollections[0]:
+#       name: protected
+#       patterns[0]: /aircrafts
+
+#   securityConstraints[1]:
+#     authRoles[0]: wrk-writer
+#     securityCollections[0]:
+#       name: wrk-writer
+#       patterns[0]: /aircrafts
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    # name: wrk
+    # platform: h2
+    driver-class-name: org.h2.Driver
+    url: ${WRK_AIRCRAFT_DATASOURCE_URL:jdbc:h2:mem:wrkaircraft;DB_CLOSE_DELAY=-1;IGNORECASE=TRUE;DB_CLOSE_ON_EXIT=TRUE;DATABASE_TO_UPPER=false}
+    username: ${WRK_AIRCRAFT_DATASOURCE_USR:sa}
+    password: ${WRK_AIRCRAFT_DATASOURCE_PWD:YWRtaW4wCg==}
+    data: classpath:/db/data.sql
+    # type: com.zaxxer.hikari.HikariDataSource
+    # hikari:
+      #   connectionTimeout: 20000
+      #   maximumPoolSize: 4
+
+    # H2 configuration
+    # h2:
+    #   console:
+    #     enabled: ${DB_UI_ENABLED:true}
+    #     path: /h2-console
+        # settings:
+        #   trace: "false"
+        #   web-allow-others: "false"  
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: "false"
+    format_sql: "true"
+    # generate-ddl: "true"
+    # open-in-view: "false"
+    defer-datasource-initialization: "true"   
+    hibernate:
+      ddl-auto: create-drop # not in prod
+    properties:
+      javax.persistence.query.timeout: ${WRK_AIRCRAFT_DB_TIMEOUT:4000}
+      hibernate:
+        # default_schema: wrk
+        dialect: org.hibernate.dialect.H2Dialect
+        jdbc.lob.non_contextual_creation: "true"       
+  jdbc:
+    validation.query.timeout: ${WRK_AIRCRAFT_DB_TIMEOUT:4000}
+  sql:
+    init:
+      # platform: h2
+      data-locations: classpath:/db/data.sql
+      #mode: always
+  
+  # flyway:
+  #   url: ${WRK_AIRCRAFT_DATASOURCE_URL}
+    # schemas: wrk
+  #   locations: classpath:db/migration/postgresql
+  #   user: ${WRK_AIRCRAFT_DATASOURCE_USR}
+  #   password: ${WRK_AIRCRAFT_DATASOURCE_PWD}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    # name: wrk
+    # platform: postgresql
+    driverClassName: org.postgresql.Driver
+    url: ${WRK_AIRCRAFT_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${WRK_AIRCRAFT_DATASOURCE_USR:postgres}
+    password: ${WRK_AIRCRAFT_DATASOURCE_PWD:postgres}
+    data: classpath:/db/data.sql
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: "false"
+    format_sql: "true"
+    # generate-ddl: "true"
+    # open-in-view: "false"
+    defer-datasource-initialization: "true"   
+    hibernate:
+      ddl-auto: create-drop # not in prod
+    properties:
+      javax.persistence.query.timeout: ${WRK_AIRCRAFT_DB_TIMEOUT:4000}
+      hibernate:
+        # default_schema: wrk
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc.lob.non_contextual_creation: "true"         
+  jdbc:
+    validation.query.timeout: ${WRK_AIRCRAFT_DB_TIMEOUT:4000}
+  sql:
+    init:
+      # platform: postgresql
+      data-locations: classpath:/db/data.sql
+      #mode: always
+
+

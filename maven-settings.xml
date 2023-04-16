@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<!-- <proxies>
+		<proxy>
+			<id>nexus-proxy-http</id>
+			<active>true</active>
+			<protocol>http</protocol>
+			<username>scdsiml</username>
+			<password>{0EUeGg/2zR8HAa2X6J8KBu5gEG+Nu4a1j99oxflyjpw=}</password>
+			<host>193.207.1.44</host>
+			<port>31000</port>
+		</proxy>		
+		<proxy>
+			<id>nexus-proxy-https</id>
+			<active>true</active>
+			<protocol>https</protocol>
+			<username>scdsiml</username>
+			<password>{0EUeGg/2zR8HAa2X6J8KBu5gEG+Nu4a1j99oxflyjpw=}</password>
+			<host>193.207.1.44</host>
+			<port>31000</port>
+		</proxy>
+	</proxies> -->
+
+	<mirrors>
+		<mirror>
+			<id>nexus-ula-public</id>
+			<mirrorOf>central</mirrorOf>
+			<url>http://svinfulanxu.dassault-avion.fr:8081/repository/maven-public-releases/</url>
+			<name>Depot Maven Releases Usine Logicielle Public</name>
+		</mirror>
+
+		<!-- <mirror>
+			<id>zei-nexusiq-maven</id>
+			<mirrorOf>central</mirrorOf>
+			<url>http://nexusfw.zonezei:8080/</url>
+			<name>Nexus IQ</name>
+		</mirror> -->
+	</mirrors>
+
+	<servers>
+		<server>
+			<id>nexus-ula-public</id>
+			<username>public</username>
+			<password>public</password>
+		</server>
+
+		<server>
+			<id>zei-nexusiq-maven</id>
+			<username>scdsiml</username>
+			<password>{0EUeGg/2zR8HAa2X6J8KBu5gEG+Nu4a1j99oxflyjpw=}</password>
+		</server>
+	</servers>
+</settings>
